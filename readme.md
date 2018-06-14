@@ -1,7 +1,7 @@
-# discord-image-downloader-go
+# DiscordGo ImageScraper
 [<img src="https://img.shields.io/badge/Support-me!-orange.svg">](https://www.paypal.me/swk) [![Go Report Card](https://goreportcard.com/badge/github.com/Seklfreak/discord-image-downloader-go)](https://goreportcard.com/report/github.com/Seklfreak/discord-image-downloader-go) [![Build Status](https://travis-ci.org/Seklfreak/discord-image-downloader-go.svg?branch=master)](https://travis-ci.org/Seklfreak/discord-image-downloader-go)
 
-[Download the latest release](https://github.com/smokeofc/discord-image-downloader-go/releases/latest)
+[Download the latest release](https://github.com/smokeofc/discordgo-imagescraper/releases/latest)
 
 ## Discord SelfBots are forbidden!
 [Official Statement](https://support.discordapp.com/hc/en-us/articles/115002192352-Automated-user-accounts-self-bots-)
@@ -27,7 +27,7 @@ When you run the tool for the first time it creates a `config.ini` file with exa
 In case you are using two-factor authentication you have to login using your token. Remove the email and password lines under the auth section in the config file and instead put in `token = <your token>`. You can acquire your token from the developer tools in your browser (`localStorage.token`) or discord client (Control+Shift+I (Windows) or Command+Option+I, click Application, click Local Storage, click `https://discordapp.com`, and find "token" and paste the value).
 
 ## How to download old pictures?
-1. When you've downloaded the latest release, put the discord-image-downloader-go-windows-amd64.exe file in a folder, let's say 'C:\DiscordDL' for the purposes of this instruction, but you can choose your own location.
+1. When you've downloaded the latest release, put the discordgo-imagescraper-windows-amd64.exe file in a folder, let's say 'C:\DiscordDL' for the purposes of this instruction, but you can choose your own location.
 
 2. You will see a command window open and close as it's generating a skeleton config file that you can use to config the selfbot. it will look like so:
 ```

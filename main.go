@@ -74,10 +74,10 @@ var (
 )
 
 const (
-	VERSION                          = "1.29.3"
+	VERSION                          = "1.0"
 	DATABASE_DIR                     = "database"
-	RELEASE_URL                      = "https://github.com/Seklfreak/discord-image-downloader-go/releases/latest"
-	RELEASE_API_URL                  = "https://api.github.com/repos/Seklfreak/discord-image-downloader-go/releases/latest"
+	RELEASE_URL                      = "https://github.com/smokeofc/discordgo-imagescraper/releases/latest"
+	RELEASE_API_URL                  = "https://api.github.com/repos/smokeofc/discordgo-imagescraper/releases/latest"
 	IMGUR_CLIENT_ID                  = "a39473314df3f59"
 	REGEXP_URL_TWITTER               = `^http(s?):\/\/pbs(-[0-9]+)?\.twimg\.com\/media\/[^\./]+\.(jpg|png)((\:[a-z]+)?)$`
 	REGEXP_URL_TWITTER_STATUS        = `^http(s?):\/\/(www\.)?twitter\.com\/([A-Za-z0-9-_\.]+\/status\/|statuses\/|i\/web\/status\/)([0-9]+)$`
@@ -107,7 +107,7 @@ type ImgurAlbumObject struct {
 }
 
 func main() {
-	fmt.Printf("discord-image-downloader-go version %s\n", VERSION)
+	fmt.Printf("discordgo-imagescraper version %s\n", VERSION)
 	if !isLatestRelease() {
 		fmt.Printf("update available on %s !\n", RELEASE_URL)
 	}
