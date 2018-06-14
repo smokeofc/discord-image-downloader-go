@@ -28,6 +28,7 @@ In case you are using two-factor authentication you have to login using your tok
 
 ## How to download old pictures?
 1. When you've downloaded the latest release, put the discord-image-downloader-go-windows-amd64.exe file in a folder, let's say 'C:\DiscordDL' for the purposes of this instruction, but you can choose your own location.
+
 2. You will see a command window open and close as it's generating a skeleton config file that you can use to config the selfbot. it will look like so:
 ```
 [auth]
@@ -57,16 +58,22 @@ access token        = your access token
 access token secret = your access token secret
 ```
 change 'send notices to interactive channels = false' to 'send notices to interactive channels = true'
+
 3. fill out your email and password.
+
 4. Create a new section somewhere in the file with the heading [interactive channels], you need that to be able to 'chat' with your secondary account.
+
 5. in a browser, open https://discordapp.com/, and login with your secondary account.
+
 6. You'll be in the DM view, open a chat with your main account, and you'll notice that the URL is something along the lines of https://discordapp.com/channels/@me/873685642264840742.
+
 7. copy the last number from the url and paste it in the config file under [interactive channels], and add a location like so:
 ```
 [interactive channels]
 873685642264840742 = C:\DiscordDL\DM
 ```
 8. now you're going to need the id of the channel you want to download from, the easiest way to do so is to enable developer mode. You can do so in either the main client or the browser view by going to the discord settings, under Appearance. After activating it, right click on the channel you want and select Copy ID.
+
 9. Paste it under [channels], and include a download location, like so:
 ```
 [channels]
