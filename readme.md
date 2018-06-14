@@ -113,11 +113,3 @@ access token secret = your access token secret
 
 ### Where do I get the channel id?
 Open discord in your browser and go to the channel you want to monitor. In your address bar should be a URL like `https://discordapp.com/channels/1234/5678`. The number after the last slash is the channel id, in this case, `5678`. Or, enable Developer mode and right click the channel you need, and click Copy ID.
-
-#### Going to bake into readme later:
-OK, Makein found me on discord, so helped him out there. for future readers, here are some instructions:
-
-
-
-Hope this helps anyone still having trouble setuping this thing :)
-I think this issue can be closed now.
