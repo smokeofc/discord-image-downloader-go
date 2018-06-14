@@ -36,3 +36,91 @@ After this is done restart the tool and send `history` as a DM to your second ac
 
 ### Where do I get the channel id?
 Open discord in your browser and go to the channel you want to monitor. In your address bar should be a URL like `https://discordapp.com/channels/1234/5678`. The number after the last slash is the channel id, in this case, `5678`. Or, enable Developer mode and right click the channel you need, and click Copy ID.
+
+#### Going to bake into readme later:
+OK, Makein found me on discord, so helped him out there. for future readers, here are some instructions:
+
+1. When you've downloaded the files, put the discord-image-downloader-go-windows-amd64.exe file in a folder, let's say 'C:\DiscordDL' for the purposes of this instruction, but you can choose your own location.
+2. You will see a command window open and close as it's generating a skeleton config file that you can use to config the selfbot. it will look like so:
+```
+[auth]
+email    = your@email.com
+password = your password
+
+[general]
+skip edits                           = true
+download tistory sites               = false
+max download retries                 = 5
+download timeout                     = 60
+send notices to interactive channels = false
+
+[channels]
+channelid1 = C:\full\path\1
+channelid2 = C:\full\path\2
+channelid3 = C:\full\path\3
+
+[flickr]
+api key = your flickr api key
+
+[twitter]
+consumer key        = your consumer key
+consumer secret     = your consumer secret
+access token        = your access token
+access token secret = your access token secret
+```
+change 'send notices to interactive channels = false' to 'send notices to interactive channels = true'
+3. fill out your email and password.
+4. Create a new section somewhere in the file with the heading [interactive channels], you need that to be able to 'chat' with your secondary account.
+5. in a browser, open https://discordapp.com/, and login with your secondary account.
+6. You'll be in the DM view, open a chat with your main account, and you'll notice that the URL is something along the lines of https://discordapp.com/channels/@me/873685642264840742.
+7. copy the last number from the url and paste it in the config file under [interactive channels], and add a location like so:
+```
+[interactive channels]
+873685642264840742 = C:\DiscordDL\DM
+```
+8. now you're going to need the id of the channel you want to download from, the easiest way to do so is to enable developer mode. You can do so in either the main client or the browser view by going to the discord settings, under Appearance. After activating it, right click on the channel you want and select Copy ID.
+9. Paste it under [channels], and include a download location, like so:
+```
+[channels]
+232143587603644416 = C:\DiscordDL\Server\Channel
+```
+If you've done as instructed, when you write 'history' (without ') in a DM to your secondary account, you should get the following response:
+```
+Please tell me one or multiple Channel IDs (separated by commas)
+Please make sure the channels have been whitelisted before submitting.
+```
+Just paste a ID that's already listed under [channels] into the chat, and it should start downloading every image posted to that channel
+
+If you leave the selfbot running, it will automatically download all new images added to all channels listed under [channels], and if you only want to launch it every now and then to update, it seems to ignore pictures that you've already downloaded, so just run the 'history' command again.
+
+Your config.ini should look something like this when you're done:
+```
+[auth]
+email    = mail@mymail.com
+password = super1337pw
+
+[general]
+skip edits                           = true
+download tistory sites               = false
+max download retries                 = 5
+download timeout                     = 60
+send notices to interactive channels = true
+
+[interactive channels]
+873685642264840742 = C:\DiscordDL\DM
+
+[channels]
+232143587603644416 = C:\DiscordDL\Server\Channel
+
+[flickr]
+api key = your flickr api key
+
+[twitter]
+consumer key        = your consumer key
+consumer secret     = your consumer secret
+access token        = your access token
+access token secret = your access token secret
+```
+
+Hope this helps anyone still having trouble setuping this thing :)
+I think this issue can be closed now.
