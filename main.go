@@ -129,6 +129,7 @@ func main() {
 		cfg.Section("general").NewKey("max download retries", "5")
 		cfg.Section("general").NewKey("download timeout", "60")
 		cfg.Section("general").NewKey("send notices to interactive channels", "false")
+		cfg.Section("general").NewKey("discord status", "Running image scraper")
 		cfg.Section("channels").NewKey("channelid1", "C:\\full\\path\\1")
 		cfg.Section("channels").NewKey("channelid2", "C:\\full\\path\\2")
 		cfg.Section("channels").NewKey("channelid3", "C:\\full\\path\\3")
