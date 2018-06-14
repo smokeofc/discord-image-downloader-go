@@ -68,6 +68,7 @@ var (
 	twitterAccessTokenSecret         string
 	DownloadTimeout                  int
 	SendNoticesToInteractiveChannels bool
+	SendStatusMessages               bool
 	clientCredentialsJson            string
 	DriveService                     *drive.Service
 	discordstatuscfg                 string
@@ -129,6 +130,7 @@ func main() {
 		cfg.Section("general").NewKey("max download retries", "5")
 		cfg.Section("general").NewKey("download timeout", "60")
 		cfg.Section("general").NewKey("send notices to interactive channels", "false")
+		cfg.Section("general").NewKey("send status messages","true")
 		cfg.Section("general").NewKey("discord status", "Running image scraper")
 		cfg.Section("channels").NewKey("channelid1", "C:\\full\\path\\1")
 		cfg.Section("channels").NewKey("channelid2", "C:\\full\\path\\2")
@@ -274,6 +276,7 @@ func main() {
 	MaxDownloadRetries = cfg.Section("general").Key("max download retries").MustInt(3)
 	DownloadTimeout = cfg.Section("general").Key("download timeout").MustInt(60)
 	SendNoticesToInteractiveChannels = cfg.Section("general").Key("send notices to interactive channels").MustBool(false)
+	SendStatusMessages = cfg.Section("general").Key("send status messages").MustBool()
 	
 	// discord status
 	discordstatuscfg = cfg.Section("general").Key("discord status").MustString("")
@@ -686,9 +689,11 @@ func handleDiscordMessage(m *discordgo.Message) {
 							var lastBeforeTime time.Time
 						MessageRequestingLoop:
 							for true {
-								if lastBeforeTime != (time.Time{}) {
-									fmt.Printf("[%s] Requesting 100 more messages, (before %s)\n", time.Now().Format(time.Stamp), lastBeforeTime)
-									dg.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Requesting 100 more messages, (before %s)\n", lastBeforeTime))
+								if SendStatusMessages {
+									if lastBeforeTime != (time.Time{}) {
+										fmt.Printf("[%s] Requesting 100 more messages, (before %s)\n", time.Now().Format(time.Stamp), lastBeforeTime)
+										dg.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Requesting 100 more messages, (before %s)\n", lastBeforeTime))
+									}
 								}
 								messages, err := dg.ChannelMessages(channelValue, 100, lastBefore, "", "")
 								if err == nil {
