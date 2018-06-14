@@ -70,6 +70,7 @@ var (
 	SendNoticesToInteractiveChannels bool
 	clientCredentialsJson            string
 	DriveService                     *drive.Service
+	discordstatuscfg                 string
 )
 
 const (
@@ -272,6 +273,9 @@ func main() {
 	MaxDownloadRetries = cfg.Section("general").Key("max download retries").MustInt(3)
 	DownloadTimeout = cfg.Section("general").Key("download timeout").MustInt(60)
 	SendNoticesToInteractiveChannels = cfg.Section("general").Key("send notices to interactive channels").MustBool(false)
+	
+	// discord status
+	discordstatuscfg = cfg.Section("general").Key("discord status").MustString("")
 
 	// setup google drive client
 	clientCredentialsJson = cfg.Section("google").Key("client credentials json").MustString("")
@@ -500,7 +504,7 @@ func handleDiscordMessage(m *discordgo.Message) {
 		for _, iAttachment := range m.Attachments {
 			startDownload(iAttachment.URL, iAttachment.Filename, folderName, m.ChannelID, m.Author.ID, fileTime)
 		}
-		foundUrls := xurls.Strict.FindAllString(m.Content, -1)
+		foundUrls := xurls.Strict().FindAllString(m.Content, -1)
 		for _, iFoundUrl := range foundUrls {
 			links := getDownloadLinks(iFoundUrl, m.ChannelID, false)
 			for link, filename := range links {
@@ -520,7 +524,7 @@ func handleDiscordMessage(m *discordgo.Message) {
 					}
 				}
 				if embed.Description != "" {
-					foundUrls := xurls.Strict.FindAllString(embed.Description, -1)
+					foundUrls := xurls.Strict().FindAllString(embed.Description, -1)
 					for _, iFoundUrl := range foundUrls {
 						links := getDownloadLinks(iFoundUrl, m.ChannelID, false)
 						for link, filename := range links {
@@ -772,7 +776,7 @@ func handleDiscordMessage(m *discordgo.Message) {
 						interactiveChannelLinkTemp[m.ChannelID] = iAttachment.URL
 						foundLinks = true
 					}
-					foundUrls := xurls.Strict.FindAllString(m.Content, -1)
+					foundUrls := xurls.Strict().FindAllString(m.Content, -1)
 					for _, iFoundUrl := range foundUrls {
 						dg.ChannelMessageSend(m.ChannelID, fmt.Sprintf("Where do you want to save <%s>?\nType **.** for default path or **cancel** to cancel the download %s", iFoundUrl, folderName))
 						interactiveChannelLinkTemp[m.ChannelID] = iFoundUrl
@@ -1646,7 +1650,11 @@ func (p PairList) Less(i, j int) bool { return p[i].Value < p[j].Value }
 func (p PairList) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
 
 func updateDiscordStatus() {
-	dg.UpdateStatus(0, fmt.Sprintf("%d pictures downloaded", countDownloadedImages()))
+	if len(discordstatuscfg) > 0 { 
+		dg.UpdateStatus(0, fmt.Sprintf(discordstatuscfg))
+	} else {
+		dg.UpdateStatus(0, fmt.Sprintf("%d pictures downloaded", countDownloadedImages()))
+	}
 }
 
 func Pagify(text string, delimiter string) []string {
